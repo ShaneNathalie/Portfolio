@@ -10,17 +10,42 @@
       <ion-title size="large">Tab 3</ion-title>
     </ion-toolbar>
   </ion-header>
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input id="name" placeholder="Enter your name..." formControlName="name"></ion-input>
+        <ion-label position="stacked">Family Name</ion-label>
+        <ion-input id="familyName" placeholder="Enter your family name..." formControlName="familyName"></ion-input>
+        <ion-label position="stacked">Number</ion-label>
+        <ion-input id="phoneNumber" placeholder="Enter your number..." formControlName="phoneNumber"></ion-input>
+      </ion-item>
+    </ion-list>
 
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" class="ion-no-margin">Add Contact</ion-button>
+    </div>
+  </form>
   <ion-list>
-    <ion-item *ngFor="let contact of contacts">
-      <ion-avatar slot="start">
-        <img [src]="'/assets/images/' + contact.image " />
-      </ion-avatar>
-      <ion-label>
-        <h2>{{ contact.name }}</h2>
-        <!-- <h3>I'm a big deal</h3> -->
-        <p>{{contact.phoneNumber}}</p>
-      </ion-label>
-    </ion-item>
+    <ion-item-sliding *ngFor="let contact of contacts">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img [src]="'/assets/images/' + contact.image " />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ contact.name }}</h2>
+          <p>{{contact.phoneNumber}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger">
+          <ion-icon style="width: 30px; font-size: 24px;" name="trash" (click)="openModal(contact)"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="primary" >
+          <ion-icon style="width: 30px; font-size: 24px;" name="mail-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
+

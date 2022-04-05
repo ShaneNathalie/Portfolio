@@ -5,6 +5,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'modal-popover',
+    loadChildren: () => import('./modal-popover/modal-popover.module').then( m => m.ModalPopoverPageModule)
   }
 ];
 @NgModule({

@@ -1,0 +1,12 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Confimation</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen class="ion-text-center">
+ <h1>Are you sure you want to delete this contact ?</h1>
+ <ion-button color="danger" (click)="delete(contact)">DELETE</ion-button>
+</ion-content>

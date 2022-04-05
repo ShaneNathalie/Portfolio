@@ -1,58 +1,95 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
+import { ModalPopoverPage } from '../modal-popover/modal-popover.page';
 
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  styleUrls: ['tab3.page.scss'],
 })
-export class Tab3Page {
-//   Jelyn: 09488745380
-// Maria: 09355543564
-// Russ: 09517664573
-// Ate ann: 09457585278
-// My number: 09518515381
-// Rose: 09503376844
-// Rey: 09367656690
-// Tali: 09164412267
+export class Tab3Page implements OnInit {
   contacts = [
     {
       name: 'Jelyn',
       phoneNumber: '09488745380',
-      image: 'a.jpg'
+      image: 'a.jpg',
     },
     {
       name: 'Maria',
       phoneNumber: '09355543564',
-      image: 'd.png'
+      image: 'd.png',
     },
     {
       name: 'Russ',
       phoneNumber: '09517664573',
-      image: 'b.png'
+      image: 'b.png',
     },
     {
       name: 'My number',
       phoneNumber: '09518515381',
-      image: 'e.png'
+      image: 'e.png',
     },
     {
       name: 'Rose',
       phoneNumber: '09503376844',
-      image: 'd.png'
+      image: 'd.png',
     },
     {
       name: 'Rey',
       phoneNumber: '09367656690',
-      image: 'c.png'
+      image: 'c.png',
     },
     {
       name: 'Tali',
       phoneNumber: '09164412267',
-      image: 'f.png'
+      image: 'f.png',
     },
   ];
 
+  contactForm: FormGroup;
 
-  constructor() {}
+  constructor(
+    public formBuilder: FormBuilder,
+    public modalCtrl: ModalController
+  ) {}
 
+  ngOnInit(): void {
+    this.contactForm = this.formBuilder.group({
+      name: [''],
+      familyName: [''],
+      phoneNumber: [''],
+    });
+  }
+
+  onSubmit() {
+    const contact = this.contactForm.value;
+    this.contacts.push({
+      image: 'b.png',
+      name: contact.name + ' ' + contact.familyName,
+      phoneNumber: contact.phoneNumber,
+    });
+    this.contactForm.reset();
+  }
+
+  async openModal(selectedContact) {
+    const modal = await this.modalCtrl.create({
+      component: ModalPopoverPage,
+      componentProps: {
+        contact: selectedContact,
+      },
+    });
+
+    modal.onDidDismiss().then((res) => {
+      if(res.data) {
+        this.deleteContact(res.data);
+      }
+    });
+
+    return await modal.present();
+  }
+
+  deleteContact(contact) {
+    this.contacts = this.contacts.filter(c => c.phoneNumber !== contact.phoneNumber);
+  }
 }
