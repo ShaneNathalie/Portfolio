@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ModalPopoverPage } from '../modal-popover/modal-popover.page';
 
@@ -51,7 +52,8 @@ export class Tab3Page implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -91,5 +93,9 @@ export class Tab3Page implements OnInit {
 
   deleteContact(contact) {
     this.contacts = this.contacts.filter(c => c.phoneNumber !== contact.phoneNumber);
+  }
+
+  navigateToMessage() {
+    this.router.navigateByUrl('/tabs/tab4');
   }
 }

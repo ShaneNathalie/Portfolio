@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'modal-popover',
     loadChildren: () => import('./modal-popover/modal-popover.module').then( m => m.ModalPopoverPageModule)
+  },
+  {
+    path: 'tab4',
+    loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
   }
 ];
 @NgModule({
